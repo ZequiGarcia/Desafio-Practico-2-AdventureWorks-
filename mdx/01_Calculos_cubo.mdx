@@ -1,0 +1,14 @@
+/* Definición en formato de script MDX.
+   En el diseñador use la vista Script. Si pega varias instrucciones en un solo
+   comando de Vista de formulario, quite únicamente el último punto y coma,
+   ya que ese editor lo añade al cerrar el comando. */
+CALCULATE;
+
+CREATE MEMBER CURRENTCUBE.[Measures].[UtilidadProducto]
+AS [Measures].[Ventas] - [Measures].[CostoProducto],
+FORMAT_STRING = '#,##0.00', VISIBLE = 1;
+
+CREATE MEMBER CURRENTCUBE.[Measures].[MargenProducto]
+AS IIF(IsEmpty([Measures].[Ventas]) OR [Measures].[Ventas]=0,
+       NULL,[Measures].[UtilidadProducto]/[Measures].[Ventas]),
+FORMAT_STRING = '0.00%', VISIBLE = 1;

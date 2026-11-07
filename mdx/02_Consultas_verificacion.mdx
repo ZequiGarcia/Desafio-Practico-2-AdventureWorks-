@@ -1,0 +1,15 @@
+/* Ejecutar en una consulta MDX contra localhost\OLAP,
+   base Desafio2_AdventureWorks. */
+
+-- Conteo global, sin seleccionar moneda.
+SELECT {[Measures].[LineasVenta]} ON COLUMNS
+FROM [Cubo Ventas Internet];
+
+-- Totales de la moneda USD para comparar con Power BI.
+SELECT {
+ [Measures].[Ventas],[Measures].[CostoProducto],
+ [Measures].[UtilidadProducto],[Measures].[MargenProducto],
+ [Measures].[Unidades],[Measures].[LineasVenta]
+} ON COLUMNS
+FROM [Cubo Ventas Internet]
+WHERE ([Moneda].[CodigoMoneda].&[USD]);
